@@ -1,0 +1,109 @@
+
+FILES
+
+%%writefile mytext.txt   this is just notebook convention
+krbfjhn
+eekjfn
+
+this will create a .txt file named mytext.txt and save it in the current folder
+
+OS module is used to access the file system
+os.gwtcwd()  wil print the path of our current working directory
+os.listdir(path) will print a list of the elemens of the folder in the path
+os.path.dirname(path)   return the name of the directory in apath
+
+in this way you can read a file
+myfile = open('mydata.txt')  myfile now can be teated as an iterable, and if we
+iterate after all we need to 'rewind it with
+myfile.seek(0)
+
+it is possbile to read lines of the file using
+first = myfile.readline() end if we do it again we will get the second lineor get the rest with
+rest = myfile.read()
+we can read also less carachter inserting the nuber ainside the brackets
+
+io    module used to work streams
+f = io.StringIO("some initial text data")  for instance create a stremas from a string
+It is important to remember to close (myfile.close()) files once finished to use them because
+ it makes the coputer more efficient.
+otherwise we can open it with this format
+with open('filename') as somefile:
+	content= somefile(read)
+it closes the file automaticallu after the indentation
+
+when we open a file we can specify a mode: 'w' write, 'r' read(default), 'a' append to existing.
+if we want to write files 
+
+
+
+
+CSV
+csv file are red and handled using numpy capabilities
+genfromtext is a powerful CSV reader which can handle a lot of exceptions adn personalization,
+for instance you can name the column of the csv file, give to every column a type
+np.genfromtxt(spots.raw, delimiter=';')
+
+
+
+
+INTERNET
+A url consists of:
+
+A scheme (http, https, ssh, ...)
+A host (maps.googleapis.com, the name of the remote computer you want to talk to)
+A port (optional, most protocols have a typical port associated with them, e.g. 80 for http)
+A path (Like a file path on the machine, here it is maps/api/staticmap)
+A query part after a ?, (optional, usually ampersand-separated parameters e.g. size=400x400, or zoom=12)
+URLs are not allowed to include all characters; we need to, for example, 
+"escape" a space that appears inside the URL, replacing it with %20, 
+so e.g. a request of http://some example.com/ would need to be http://some%20example.com/
+https://en.wikipedia.org/wiki/Percent-encoding   for more info
+
+the python library requests is easier to use than the urlib standard python module
+and when we do a request the results come out as text. if instead of get we use post we
+could upload data on a webpage
+
+
+
+
+STRUCTURED DATA(JSON,YAML,XML)
+
+JSON
+json ia s format for data structures, in python there is a built-in library call json
+to save a data in json just
+import json
+json.dumps(mydata, indent=4) serialize objects as json streams
+json.load(mydata)    deserialize mydata ina a python object 
+
+to save data in a json file:
+we have data structure, so we open a file.json and we write the data structure 
+but remembering to use json.dumps(datastructure) to have it in the correct format
+
+to upload a json file
+open the file and load it with json.load()
+
+
+With dump you serialize the data to the desired format. 
+To write serialized data
+
+with open('filename.json',w) as file: 
+	file.write(SerializedDataStructure)
+
+To read file
+
+with opend('filename.json') as file:
+	data = json.loads(file)
+
+YAML
+it is more readable, you an have comments and write elements like a list
+
+
+
+
+
+
+
+
+
+
+

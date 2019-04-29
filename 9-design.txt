@@ -1,0 +1,36 @@
+DESIGN PATTERNS
+
+there are some way of arranging classes that works better than
+other, those ways are called design patterns. Following some examples
+
+
+FACTORY METHOD
+define an interface to create an objects but leve to the subclasses decide
+which class to instantiate. WE can uce this method when a class can't anticipate
+the class of objects it must create or a class wants it subclasses to specify the object
+to instantiate.
+
+
+BUILDER
+Its main aim is to separate the steps to create a complex object from
+its final rapresentation. 
+The problem: a common input and many possible rapresentation
+Long constructors easily become very complicated. 
+Instead, it can be cleaner to define a Builder for models. A builder is like a 
+deferred factory: each step of the construction process is implemented as an individual 
+method call, and the completed object is returned when the model is ready.
+An antipattern is when a model is not reay just with the __int__ constructor, so we use the
+model builder.
+
+
+STRATEGY PATTERN
+
+
+MODEL VIEW CONROLLES
+Whenever we are coding a simulation or model we want to:
+Implement the maths of the model
+Visualise, plot, or print out what is going on.
+We often see scientific programs where the code which is used to display what is happening is 
+mixed up with the mathematics of the analysis. This is hard to understand.
+
+We can do better by separating the Model from the View, and using a "Controller" to manage them.

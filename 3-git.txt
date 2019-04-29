@@ -1,0 +1,31 @@
+VERSION CONTROL
+
+CENTRALIZED VCS.. just one golden copy of the project, when 
+you commit you need to be connected on the internet. It is centralized
+
+DISTRIBUTED VCS.. there is no main repository, by convention the one in gitlab
+is the official
+
+Reproductible -> Unit Testing
+Version control system..
+Lear GIT -> https://try.github.io/
+
+git -> protocol, command to manage
+gihhub ->application server, web application.. uses git command
+
+pwd          peint working directory
+mkid         create new directory
+cd           change directory
+vi           
+git init     initialize a git repository
+git status
+git add      to add a file to the staging area
+git commit -m for a message
+git log      to see the log
+git config --global    to set your detail: name email
+git pus
+git checkout -b nameofthebranch  shift the workflow on the other branch
+git branch -d nameofthebranch    delete a branch
+
+cloning  copying in local
+forking  create a new version of a project of a project

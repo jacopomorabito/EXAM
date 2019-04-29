@@ -1,0 +1,41 @@
+SOFTWARE CONSTRUCTION
+
+Choice of variable name
+Choice of comments
+Choice of layout
+
+Syntax choices
+Camel Case: Class names with upper case, methods lower case
+and variables separated with underscore
+
+No raw number but magic number
+
+Better not to allow repeated fragments of code
+
+Better to write clean and selfexplaining cod instead of writing comments
+
+When dealing with long epressions we can create local variables.
+
+Replacing loop with iterator
+
+Replace set of arrays with array of structures. When for instance
+a function needs to work corresponding indices of several arrays.
+
+Replace constant with conficguration file
+
+Replace global variables with function arguments
+
+Merge neighbouring loops
+
+Break a large function into smaller units
+
+Separate code concepts into files or modules
+
+
+
+
+DESIGN
+Classes
+We ought to replace ad-hoc data structures with classes, and replace functions
+with methods inside Classes
+Replace method arguments with class members if the argument is used a lot of times

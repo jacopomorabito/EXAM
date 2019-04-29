@@ -1,0 +1,99 @@
+N.B.  The __init__.py files are required to make Python treat the 
+directories as containing packages;
+
+There are different type of test:
+-unit testing   small logical block
+-component testing  several block of code working together
+-integration testing  all components together
+
+Always start ad small cases
+for legacy code it is hard to create unit tests, so we create regression test
+we run the code as a black box and see if the output are the one we expect.
+this way we are not testing the correctness of the code.
+
+vocabulary:
+fixture: input data
+action: function that is being tested
+expected result: the output that should be obtained
+actual result: the output that is obtained
+coverage: proportion of all possible paths in the code that the tests take
+
+BRANCH COVERAGE   Branch coverage is a testing method, which aims to ensure 
+that each one of the possible branch from each decision point is executed at 
+least once and thereby ensuring that all reachable code is executed. 
+
+
+We can run tests using asser in the following form
+assert something == somethingelses
+if this assertion is not corret an error will be raised
+
+
+"BOUNDARY CASES" are an important area to test:
+Limit between two equivalence classes: edge and corner sharing fields
+Wherever indices appear, check values at 0, N, N+1
+Empty arrays
+
+Positive tests: code should give correct answer with various inputs
+Negative tests: code should crash as expected given invalid inputs, rather than lying
+
+
+We can easly raise an error with
+
+raise ValueError(string for the output error)
+
+
+TEST FRAMEWORK in python we use pytest(recomanded)
+
+test for the negative cases
+from pytest import raises
+This is for negative type of errors
+with raises(ValueError)
+	codition wich should raise ValueError
+
+if we create a file with some test and we run pytest from the
+bash the test file is run. It automatically finds the files
+called test_*.py, collectes the subroutine called test_* and
+run the tests. there are also some options to thislike 
+
+pytest -k nameofthetest
+
+
+if we are running some test with floating point we need to remember that those are not real numbers
+in this case we should use approx 
+
+from pytest import approx
+asset 0.7 == appox(0.701, rel=0.1, abs=0.1)
+
+if we are going to test vectors of floating points a submodule of numpy
+can be used 
+from numpy.testing import assert_allclose
+
+
+with pytest-cov we can measure the coverage of our tests
+
+
+
+MOKING unittest.mock
+literally means to create a replica or imitation of something
+
+Replace a real object with a pretend object, which records how it is called, and can assert if it is called wrong
+
+from unittest.mock import Mock
+
+from unittest.mock import patch
+with patch.object(requests,'get') as mock_get:
+    london_map = map_at(51.5073509, -0.1277583)
+    print(mock_get.mock_calls)
+Not understood at all
+
+
+
+
+
+
+
+
+
+
+
+

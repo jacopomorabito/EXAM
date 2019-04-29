@@ -1,0 +1,53 @@
+install libraries done with either pip or conda
+pip install libraryname
+
+with pip 
+
+pip install namelibrary
+
+or also offline, we download the package, go to the package folder with terminal and use 
+pip instll
+pip install name of the file
+https://conda-forge.org/
+
+will help acess more software to be installed.
+
+when we import a module we can see were it is located we can seewith
+pythonpackage.__path__
+
+if we import sys, used to navigate in the system
+if we have a package in a ifferent location we need to add
+the repository to the ssystem path. using sys.path.append('path of the folder containing the package)
+but it is not raccomandable to do that
+
+
+If the code is not open it is difficult to know and watch if it works.
+if in git when was it updated?and how often it happens?
+
+changelog is a filewith the log of every modifications
+codecoverage.... it means that the coverag
+
+if we want ot import a package we need to add it to the path
+
+
+#!/usr/bin/env python
+this line is importnt for linux users
+
+if __name__ == "__main__": 
+if i call the file need to run that
+
+    parser = ArgumentParser(description="Generate appropriate greetings") a description
+    parser.add_argument('--title', '-t')  with dash it is optional parameter
+    parser.add_argument('--polite','-p', action="store_true") 
+    parser.add_argument('personal') non optional parameter
+    parser.add_argument('family')
+    arguments= parser.parse_args() this parse all the argument
+
+
+
+
+for the structure we will need to have a big folder (studet ID for the exam)
+inside the libary.
+the library and other file, setup.py. README (hot to use the program) CITATION (how to cite my work)
+
+

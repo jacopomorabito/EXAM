@@ -1,0 +1,268 @@
+#!/usr/bin/env python
+
+TEST
+
+from pytest import raises
+from simplemaths.simplemaths import SimpleMaths
+from numpy.testing import assert_allclose
+
+class TestSimpleMaths():
+    def test_initialization(self):
+        with raises(ValueError):
+            x = SimpleMaths(3.3)
+            x = SimpleMaths('string')
+            x = SimpleMaths([1,2])
+
+    def test_square(self):
+        number = [0, 1, 2, 5]
+        classes = []
+        for i in number:
+            classes.append(SimpleMaths(i))
+        result = [f.square() for f in classes]
+        ob = SimpleMaths(1)
+        result_fac = [ob._factorial(n) for n in number]
+        
+        assert_allclose(result, [0,1,4,25])
+        assert_allclose(result_fac, [1,1,2,120])
+
+    def test_square_neg(self):
+        x = SimpleMaths(3)
+        y = SimpleMaths(-2)
+        with raises(AssertionError):
+            assert_allclose([x.square(),y.square()], [10, -4])
+    
+    def test_power(self):
+        obj = SimpleMaths(2)
+        number = [0, 1, 2, 5]
+        result = [obj.power(n) for n in number]
+               
+        assert_allclose(result, [1,2,4,32])
+
+    def test_odd_or_even(self):
+        number = [0, 1, 2, 3]
+        classes = []
+        for i in number:
+            classes.append(SimpleMaths(i))
+        result = [f.odd_or_even() for f in classes]
+
+        assert result ==['Even','Odd','Even','Odd']
+        
+        ob = SimpleMaths(25)
+        with raises(AssertionError):   
+            assert ob.odd_or_even() == 'Even'
+        
+    def test_square_root(self):
+        number = [0, 1, 4]
+        classes = []
+        for i in number:
+            classes.append(SimpleMaths(i))
+        result = [f.square_root() for f in classes]
+
+        assert result ==[0,1,2]
+        
+        ob = SimpleMaths(2)
+        with raises(AssertionError):   
+            assert ob.square_root() ==2
+
+ 
+
+
+
+
+
+
+
+
+REFACTOR ARGPARSE
+
+#!/usr/bin/env python
+
+import numpy as np
+import matplotlib.pyplot as plt
+import argparse
+import encodings
+
+parser = argparse.ArgumentParser(description='Creation of a Julia image')
+parser.add_argument('-c', type=int, default=800,
+                help='number of column, default')
+parser.add_argument('-r', type=int, default=600,
+                help='number of row, default 600')
+parser.add_argument('-ce', type=int, default=2.0,
+                help='centrature')
+parser.add_argument('-d', default=0.27015,
+                help='diagonal parameter')
+parser.add_argument('-e', default=4,
+                help='expasion parameter')
+                
+args = parser.parse_args()
+
+
+def intensity(row, col, x, y):
+    '''
+    The output is the intensity colour of the pixel based in the dimension
+    of the image and the position of the pixel in the image
+    '''
+    zx = 1.5*(x-col/2)/(0.5*1*col)
+    zy = 1.0*(y-row/2)/(0.5*1*row)
+    colour = 255
+    t=True
+    while t==True:
+
+        condition_1 = zx*zx+zy*zy>=args.e
+        condition_2 = colour <= 1
+        if (condition_1 or condition_2):
+            t=False
+      
+        a = zx*zx-zy*zy-0.7
+        zy = args.ce*zx*zy+args.d
+        zx = a
+        colour -= 1
+    return colour
+   
+def image_creation(row, col):
+    '''
+    This function takes as input the number of row and the number of columns
+    and row which will form the Julia image.    
+    '''
+    A = np.zeros([row,col])
+
+    for x in range(col):
+        for y in range(row):
+            A[y][x] = intensity(row, col, x, y)
+    
+    plt.imshow(A)
+    plt.savefig('julia_image')
+
+
+if __name__ == "__main__":
+   image_creation( args.r,args.c)
+
+
+
+
+
+
+LOAD
+
+
+
+
+import numpy as np
+import os
+import json
+import matplotlib.pyplot as plt
+
+#question a
+
+# upload data
+path = os.path.join(os.getcwd(), 'MPHYG001_files', 'python_language_1', 
+        'python_language_1_data.csv')
+data = np.genfromtxt(path, delimiter=',', skip_header=1)
+
+# creation of dictionary
+f_data = {}
+for line in data:
+    key = str(int(line[0]))
+    if key in f_data.keys():
+        f_data[key].append(line[2])
+    else:
+        f_data[key] = [line[2]]
+
+# upload data to disk in JSON format
+json_data = json.dumps(f_data, indent=4)
+with open ('python_language.json', 'w') as raw:
+    raw.write(json_data)
+
+
+#question b
+def plotting(filename, year, colour=0):
+    '''This function plot the data of rainfoall for a specific year.
+    It is also ossible to specify a preferred colour for the graph
+    '''
+    # upload data
+    with open(filename,'r')as jsn_data:
+        data = json.load(jsn_data)
+    
+    year = str(year)
+    if colour:
+        plt.plot(data[year],colour)
+    else:
+        plt.plot(data[year])
+    name = 'plot'+str(year)
+    plt.savefig(name)
+    plt.close()
+
+# save file with rainfall data of 1988
+plotting('python_language.json', 1988)
+
+
+#question c
+
+def plotting_mean(filename, start_period, end_period):
+    ''' This function plot the average of rainfall for a specified period.
+    '''
+
+    # upload data
+    with open(filename,'r') as jsn_data:
+        data = json.load(jsn_data)
+    
+    # calculating the mean for each year in the period
+    mean = [] 
+    year = start_period
+    while year <= end_period:
+        year_str = str(year)
+        mean.append(np.mean(data[year_str]))
+        year += 1
+
+    # plot and saving
+    years = range(start_period,end_period+1)
+    plt.plot(years, mean)
+    name = 'plot'+str(start_period) +'-'+str(end_period)
+    plt.savefig(name)
+    plt.close()
+
+plotting_mean('python_language.json', 1988, 2000)
+
+
+#question d
+
+def correction_factor(val):
+    ''' 
+    this function applies the correction factor to a single value
+    '''
+
+    val = val * 1.2 * np.sqrt(2)
+    return val
+
+def function_1(filename, year):
+    ''' 
+    This fucntion applies the corretion facto to all the value of a specified year
+    '''
+
+    # upload data
+    with open(filename,'r')as jsn_data:
+        data = json.load(jsn_data)
+
+    year = str(year)
+    new_value  = []
+    for val in data[year]:
+        new_value.append(correction_factor(val))
+    
+    return new_value
+        
+def function_2(filename, year):
+    ''' 
+    This fucntion applies the corretion facto to all the value of a specified year.
+     In comparison with the function 1 this uses list comprehension which is a more
+     elegant and readable way of completing this task. However when the 
+     transformation of the data is more complex, or the data structure is more interwined 
+     it is more advisable to use a for loop.
+    '''
+    # upload data
+    with open(filename,'r')as jsn_data:
+        data = json.load(jsn_data)
+
+    year = str(year)
+    new_value = [correction_factor(val) for val in data[year] ]
+
+    return new_value

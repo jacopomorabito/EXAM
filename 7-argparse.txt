@@ -1,0 +1,47 @@
+ARGPARSE
+
+__file__ give the name of the file
+
+tis is a python's module useful to make our scripts callable with some oprions
+from the command line.
+
+parser = argparse.ArgumentParser() #thid way we intialize the parser
+parser.add_argument("name of the action") #here we add the a positonal argument
+parser.add_argument("secondargum", help = description of what it does)
+parser.add_argument("3arg", type = int) #automatically every arguent is treated as a string
+parser.add_argument("--verbosity", help="increase output verbosity") #this way we insert optional arguments
+args = parser.parse_args()
+
+args.3arg #to call the argument
+
+
+normally an argument accepts any value, but if we want ony true or false
+this means now that our argument works as a flag. not specifying the arguments implies false
+parser.add_argument("--verbosity", action = "store_true")
+
+we can also insert the option to call the argument with short notation
+parser.add_argument("-v", "--verbose", action="store_true")
+
+if out argument can accepts onlu certain kind of values, we use choices = 
+and if there is some other element called in the line it raises an error
+arser.add_argument("-v", "--verbosity", type=int, choices=[0, 1, 2])
+
+
+to make some choices but use as a flag we can use this format
+parser.add_argument("-v", "--verbosity", action="count")
+
+so  if we call
+filename -vv it is like calling -verbority 2 in the previous example
+
+we cans et default values using the option default = 1 for instance.
+it is iportat to highlights that if an optional argument is not specified
+it s true value is set to None so not omparable to numbers.
+verbosity is used to also give more information and not just the answer in a differnet format.
+
+So far, we have been working with two methods of an argparse.ArgumentParser instance. 
+Let’s introduce a third one, add_mutually_exclusive_group(). It allows for us to specify options that conflict with each other. 
+this way we can call one of the to element not both of them
+
+group = parser.add_mutually_exclusive_group()
+group.add_argument("-v", "--verbose", action="store_true")
+group.add_argument("-q", "--quiet", action="store_true")

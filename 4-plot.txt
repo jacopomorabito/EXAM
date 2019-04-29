@@ -1,0 +1,122 @@
+MATPLOTLIB
+
+from matplotlib import pyplot as plt
+pl.title("titlename")    insert the title in the figure
+We often want multiple graphs in a single figure (e.g. for figures which 
+display a matrix of graphs of different variables for comparison).
+
+So Matplotlib divides a figure object up into axes: each pair of axes is 
+one 'subplot'. To make a boring figure with just one pair of axes, however, 
+we can just ask for a default new figure, with brand new axes. 
+The relevant function returns a (figure, axis) pair, which we can deal out 
+with parallel assignment.
+sine_graph, sine_graph_axes = plt.subplots()
+
+sine_graph_axes
+
+to save a figure
+fig_name.savefig('namfile.png')
+
+to display an image on the notebook
+from IPython.display import Image # Get the notebook's own library for manipulating itself.
+Image(filename='my_graph.png')
+
+t create a new figure we instantiate  a new one
+
+new_fig = plt.figure()
+for subplots graphs use subplots
+sin_axes = new_fig.add_subplot(2,1,1)#2 righe una colonna posizione 1
+sin_axes.plot([sin(pi*x/100.0) for x in range(100)])
+
+
+
+NUMPY
+
+%%timeit  to calculate the time used for a part of the code(notebook)
+
+to create arrays between boundaries we can use
+np.linspace(start,stop,number of intervals)
+np.arange(start, stop, delta of the interval)
+
+there are also multidimensiona arrays
+np.zeros([3,4,2])  #ceates 3 arrays with 4 rows a 2 columns each
+
+we can reshape an array using
+array_name.reshape([new dimensions])
+
+we can also index multiple columns at once
+array_name[1,2,3]
+
+sublslicing and transpose it
+array_name.transpose()
+
+we can ask the array shape using
+array_name.shape
+
+array_name.mean(1) #long row
+array_name.mean(0) #along column
+array_name.mean() #mean of the overall matrix
+
+an array can contain just one datatype and will decide to take 
+the less general.
+And it is also possible to change the type of the input data using the dtype 
+when crating the array.
+
+Array operation are element by element. The dimensions must be the same
+to perform those operation, but it one array has dimension 1 then the data are
+repeated to match the other.
+we can crate a new one dimension within the array to help when the broadcasting
+is needed. using the newaxs element array_name[:, newaxis, :]. 
+
+for matrix multiplication we use np.dot(matix_a, matrix_b).
+
+records arrays are type of array which can contain different types.
+and we can set the x.view(dtype={'names':[names of he collumns})
+
+Numpy defines operators like == and < to apply to arrays element by element:
+this can create arrays of boolean.
+
+It is possible to use matrix of bool to slice normal matrix to assign some value to True element
+
+It is importatant to remember that arrays do not behave like lists.
+if we assign a new array another_array[:] this two will be interconnected. If we want to 
+create a different copy of the array it np.copy() must be used
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
